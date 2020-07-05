@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/darkBack">
+
+    <GridView
+        android:id="@+id/abilitiesGrid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/description"
+        android:columnWidth="100dp"
+        android:layout_marginBottom="10dp"
+        android:gravity="center"
+        android:horizontalSpacing="30dp"
+        android:numColumns="auto_fit"
+        android:stretchMode="columnWidth"
+        android:verticalScrollbarPosition="right"
+        android:verticalSpacing="30dp">
+    </GridView>
+
+
+    <ImageView
+        android:id="@+id/currentAbility1"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_margin="5dp"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@id/currentAbility2"
+        android:layout_toEndOf="@id/currentAbility2"
+        android:contentDescription="TODO" />
+    <ImageView
+        android:id="@+id/currentAbility2"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_margin="5dp"
+        android:layout_alignParentBottom="true"
+        android:contentDescription="TODO" />
+    <ImageView
+        android:id="@+id/currentAbility3"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_margin="5dp"
+        android:layout_toRightOf="@id/currentAbility1"
+        android:layout_alignParentBottom="true"
+        android:layout_toEndOf="@id/currentAbility1"
+        android:contentDescription="TODO" />
+    <Button
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_margin="10dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:text="@string/backWord"
+        android:textSize="40sp"
+        android:id="@+id/o_a_button"
+        style="@style/neutral_gray"
+        android:layout_alignParentEnd="true">
+    </Button>
+    <Button
+        android:layout_width="100dp"
+        android:layout_height="50dp"
+        android:layout_margin="10dp"
+        android:layout_toLeftOf="@id/o_a_button"
+        android:layout_alignParentBottom="true"
+        android:text="@string/changeWord"
+        android:textSize="15sp"
+        android:id="@+id/o_a_change"
+        style="@style/neutral_gray"
+        android:layout_toStartOf="@id/o_a_button">
+    </Button>
+
+    <TextView
+        android:layout_width="320dp"
+        android:layout_height="50dp"
+        android:layout_above="@id/o_a_button"
+        android:layout_alignLeft="@id/o_a_change"
+        android:id="@+id/description"
+        android:layout_margin="10dp"
+        android:text="@string/desc_desc"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        android:layout_alignStart="@id/o_a_change" 
+        android:fontFamily="@font/somybmp02_7"/>
+
+</RelativeLayout>

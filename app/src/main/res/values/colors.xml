@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="darkBack">#000000</color>
+    <color name="timePaint">#CF3540</color>
+    <color name="points">#CEB786</color>
+    <color name="white">#FFFFFF</color>
+    <color name="gray">#888888</color>
+    <color name="gold">#FFD700</color>
+    <color name="whiteBlue">#197CE4</color>
+    <color name="violet">#9F00F0</color>
+</resources>

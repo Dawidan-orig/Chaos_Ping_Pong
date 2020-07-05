@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    android:background="@color/darkBack">
+
+    <GridView
+        android:id="@+id/skinsGrid"
+        android:layout_width="550dp"
+        android:layout_height="250dp"
+        android:columnWidth="20dp"
+        android:gravity="center"
+        android:horizontalSpacing="30dp"
+        android:numColumns="auto_fit"
+        android:stretchMode="columnWidth"
+        android:verticalScrollbarPosition="right"
+        android:verticalSpacing="30dp"
+        >
+
+    </GridView>
+
+    <ImageView
+        android:id="@+id/currentSkin"
+        android:layout_width="30dp"
+        android:layout_height="120dp"
+        android:layout_margin="20dp"
+        android:layout_centerHorizontal="true"
+        android:contentDescription="@string/current_skin"
+        android:layout_toRightOf="@id/skinsGrid"
+        android:layout_toEndOf="@id/skinsGrid">
+    </ImageView>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@id/skinsGrid"
+        android:layout_below="@id/skinsGrid"
+        android:text="@string/backWord"
+        android:textSize="40sp"
+        android:id="@+id/o_s_button"
+        android:layout_alignStart="@id/skinsGrid"
+        style="@style/neutral_gray">
+    </Button>
+
+</RelativeLayout>

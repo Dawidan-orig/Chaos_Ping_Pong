@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/darkBack">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center">
+        <com.example.chaos_ping_pong.GradientTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="35sp"
+            android:text="@string/tutorialEnter"/>
+    <Button
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="50dp"
+        android:text="@string/interactive"
+        android:id="@+id/interactiveBtn" />
+
+    <com.example.chaos_ping_pong.GradientTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="35sp"
+        android:layout_marginTop="30dp"
+        android:text="@string/first_of_all_tutorial"/>
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/options"/>
+    <com.example.chaos_ping_pong.GradientTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="35sp"
+        android:text="@string/controls"/>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/control1"/>
+    <com.example.chaos_ping_pong.GradientTextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="35sp"
+        android:text="@string/abilities"/>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/control2"/>
+        <com.example.chaos_ping_pong.GradientTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="35sp"
+            android:text="@string/events"/>
+        <Button
+            android:layout_width="150dp"
+            android:layout_height="60dp"
+            android:layout_marginTop="50dp"
+            android:text="@string/backWord"
+            android:id="@+id/t_back"
+            style="@style/neutral_gray"/>
+    </LinearLayout>
+</ScrollView>

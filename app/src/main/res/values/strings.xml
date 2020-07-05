@@ -1,0 +1,39 @@
+<resources>
+    <string name="app_name">Chaos Ping-Pong</string>
+    <string name="backWord"><![CDATA[<<Back]]></string>
+    <string name="current_skin">Current Skin</string>
+    <string name="changeWord">change</string>
+    <string name="pauseSticks">||</string>
+    <string name="leave">leave</string>
+    <string name="singleplayer">Singleplayer</string>
+    <string name="multiplayer">Multiplayer</string>
+    <string name="host">HOST</string>
+    <string name="join">Join</string>
+    <string name="not_loaded">TEXT IS NOT LOADED</string>
+    <string name="enter_host_ip">Enter Host IP</string>
+    <string name="start">start</string>
+    <string name="gameName">
+        CHAOS\n
+        PING-PONG
+    </string>
+    <string name="tutorial">Tutorial</string>
+    <string name="tutorialEnter">
+        This is Chaos Ping-Pong tutorial.\nYou can do it interactive by pressing button below.
+    </string>
+    <string name="first_of_all_tutorial">
+        First of all you have to understand, that this game is not normal ping-pong.\nYou can use abilities! - change them in \"Options\".
+    </string>
+    <string name="interactive">Interactive Mode</string>
+    <string name="controls">
+        Now about controls:\n\nTo move your platform, simply tap on screen, and then platform\'ll go to this position (on Y axis).
+    </string>
+    <string name="abilities">To use abilities tap them on the bottom of the screen. But warning! - Some abilities have to be used on field after charged.</string>
+    <string name="events">
+        One of game feature is Events.\n\nThere are two types of them: Global and Normal.\nNormal has blue marker, happens every 15 seconds,\nwhen Global happens every minute, has red marker and won\'t be reversed.</string>
+    <string name="reverse_desc">Reverses balls speed on Y</string>
+    <string name="spawn_obst_desc">Spawns an obstacle in tapped position after charged</string>
+    <string name="speed_up_desc">Speeds your platform</string>
+    <string name="tracker_desc">Shows ball trajectory</string>
+    <string name="smoke_desc">Spawns a smoke in tapped position after charged</string>
+    <string name="desc_desc">tap on abilities to show their description</string>
+</resources>

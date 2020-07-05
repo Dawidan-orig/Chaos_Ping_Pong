@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/darkBack">
+
+    <com.example.chaos_ping_pong.MenuBack
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="40sp"
+            android:layout_above="@id/start_button"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="20dp"
+            android:text="@string/gameName"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:fontFamily="@font/somybmp02_7"/>
+        <Button
+            android:layout_width="140dp"
+            android:layout_height="60dp"
+            android:layout_centerInParent="true"
+            style="@style/normal_violet"
+            android:id="@+id/start_button">
+        </Button>
+
+        <Button
+            android:layout_width="140dp"
+            android:layout_height="60dp"
+            android:layout_toRightOf="@id/start_button"
+            android:layout_centerVertical="true"
+            android:text="@string/tutorial"
+            android:layout_marginLeft="35dp"
+            android:id="@+id/tutorial"
+            android:layout_toEndOf="@id/start_button"
+            style="@style/neutral_gray"
+            android:layout_marginStart="35dp" />
+
+        <Button
+            android:layout_width="140dp"
+            android:layout_height="60dp"
+            android:id="@+id/options_button"
+            android:layout_below="@id/start_button"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="35dp"
+            style="@style/normal_gold">
+        </Button>
+    </RelativeLayout>
+</FrameLayout>

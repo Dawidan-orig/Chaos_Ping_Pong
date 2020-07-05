@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/darkBack">
+
+    <Button
+        android:layout_width="140dp"
+        android:layout_height="60dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:id="@+id/single"
+        style="@style/normal_violet"
+        android:text="@string/singleplayer">
+    </Button>
+
+    <Button
+        android:layout_width="140dp"
+        android:layout_height="60dp"
+        android:id="@+id/multi"
+        android:layout_below="@id/single"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="35dp"
+        style="@style/normal_violet"
+        android:text="@string/multiplayer">
+    </Button>
+
+    <Button
+        android:layout_width="140dp"
+        android:layout_height="60dp"
+        android:id="@+id/p_gtype_btn"
+        android:layout_below="@id/multi"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="35dp"
+        android:text="@string/backWord"
+        style="@style/neutral_gray">
+    </Button>
+</RelativeLayout>

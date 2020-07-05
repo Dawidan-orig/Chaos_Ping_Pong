@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/darkBack">
+
+    <com.example.chaos_ping_pong.GametypeMenuBack
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Please, choose difficulty"
+        android:layout_centerHorizontal="true"
+        android:textColor="@color/colorAccent"
+        android:textSize="40sp">
+    </TextView>
+
+    <Button
+        android:layout_width="140dp"
+        android:layout_height="60dp"
+        android:layout_centerInParent="true"
+        android:id="@+id/b_med"
+        android:text="Medium"
+        style="@style/normal_gold">
+
+    </Button>
+
+    <Button
+        android:layout_width="140dp"
+        android:layout_height="60dp"
+        android:id="@+id/b_easy"
+        android:layout_above="@id/b_med"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="25dp"
+        android:text="Easy"
+        style="@style/normal_blue">
+    </Button>
+
+    <Button
+        android:id="@+id/b_hard"
+        android:layout_width="140dp"
+        android:layout_height="60dp"
+        android:layout_below="@id/b_med"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:text="Hard"
+        style="@style/warn_red">
+    </Button>
+
+    <Button
+        android:id="@+id/b_ai_back"
+        android:layout_width="140dp"
+        android:layout_height="60dp"
+        android:layout_below="@id/b_hard"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:text="@string/backWord"
+        style="@style/neutral_gray"/>
+
+</RelativeLayout>

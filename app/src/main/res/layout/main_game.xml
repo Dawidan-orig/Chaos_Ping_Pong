@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:ads="http://schemas.android.com/apk/res-auto">
+
+    <com.example.chaos_ping_pong.DrawerSingle
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        android:textSize="30sp"
+        android:textColor="@color/timePaint"
+        android:id="@+id/time_exit"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="25sp"
+        android:layout_toLeftOf="@id/time_exit"
+        android:layout_toStartOf="@id/time_exit"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="30dp"
+        android:id="@+id/leftPt"
+        android:layout_marginEnd="30dp"
+        android:textColor="@color/points"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="25sp"
+        android:layout_toRightOf="@id/time_exit"
+        android:layout_alignParentTop="true"
+        android:id="@+id/rightPt"
+        android:layout_toEndOf="@id/time_exit"
+        android:layout_marginLeft="30dp"
+        android:layout_marginStart="30dp"
+        android:textColor="@color/points"/>
+    <Button
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:id="@+id/pauseBtn"
+        android:text="@string/pauseSticks"
+        android:textSize="12sp"
+        android:layout_alignParentStart="true"
+        style="@style/neutral_gray"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="40sp"
+        android:visibility="invisible"
+        android:id="@+id/endGameText"
+        android:layout_above="@id/leaveGameBtn"
+        android:layout_margin="30dp"
+        android:textColor="@color/colorAccent"
+        android:layout_centerHorizontal="true"/>
+    <Button
+        android:layout_width="140dp"
+        android:layout_height="60dp"
+        android:visibility="invisible"
+        android:layout_centerInParent="true"
+        android:text="@string/leave"
+        android:id="@+id/leaveGameBtn"
+        android:enabled="false"
+        style="@style/neutral_gray"/>
+
+    <com.google.android.gms.ads.AdView
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        ads:adSize="SMART_BANNER"
+        android:visibility="invisible"
+        ads:adUnitId="@string/banner_ad_unit_id">
+    </com.google.android.gms.ads.AdView>
+
+</RelativeLayout>
