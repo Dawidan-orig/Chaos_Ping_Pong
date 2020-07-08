@@ -3,6 +3,7 @@ package com.example.chaos_ping_pong;
 import android.content.pm.ActivityInfo;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,9 +27,11 @@ import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 
 import static com.example.chaos_ping_pong.Crate.soundPool;
+import static com.example.chaos_ping_pong.Crate.time;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener, SoundPool.OnLoadCompleteListener {
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,8 +98,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     Button o_abilities;
     Button o_skins;
     Button tutorial;
-    Button t_back;
-    Button t_example;
 
     Button o_s_back;
     Button o_a_back;
@@ -168,27 +170,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             options.setText("Options");
         }
 
-        if(v.getId() == R.id.tutorial)
-        {
-            setContentView(R.layout.tutorial);
-            t_example = findViewById(R.id.interactiveBtn);
-            t_example.setOnClickListener(this);
-            t_back = findViewById(R.id.t_back);
-            t_back.setOnClickListener(this);
-        }
-
-        if(v.getId() == R.id.t_back)
-        {
-            setContentView(R.layout.main_menu);
-            tutorial = findViewById(R.id.tutorial);
-            tutorial.setOnClickListener(this);
-            startButton = findViewById(R.id.start_button);
-            startButton.setOnClickListener(this);
-            options = findViewById(R.id.options_button);
-            options.setOnClickListener(this);
-
-            startButton.setText("Play");
-            options.setText("Options");
+        if (v.getId() == R.id.tutorial) {
+            Crate.difficulty = "medium";
+            Crate.playerImg = playerImg;
+            Crate.ability1 = abil1;
+            Crate.ability2 = abil2;
+            Crate.ability3 = abil3;
+            Crate.isTutor = true;
+            setContentView(R.layout.main_game);
+            pauseBtn = findViewById(R.id.pauseBtn);
+            pauseBtn.setOnClickListener(this);
+            leaveBtn = findViewById(R.id.leaveGameBtn);
+            leaveBtn.setOnClickListener(this);
+            endGameTv = findViewById(R.id.endGameText);
+            new textDynamicCheck().start();
         }
 
         if (v.getId() == R.id.start_button) {
@@ -322,21 +317,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 @Override
                 public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-                    switch (position)
-                    {
-                        case 0 :
+                    switch (position) {
+                        case 0:
                             desc.setText(R.string.reverse_desc);
                             break;
-                        case 1 :
+                        case 1:
                             desc.setText(R.string.spawn_obst_desc);
                             break;
-                        case 2 :
+                        case 2:
                             desc.setText(R.string.speed_up_desc);
                             break;
-                        case 3 :
+                        case 3:
                             desc.setText(R.string.tracker_desc);
                             break;
-                        case 4 :
+                        case 4:
                             desc.setText(R.string.smoke_desc);
                             break;
                     }
@@ -554,7 +548,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        if(Crate.client != null) {
+                        if (Crate.client != null) {
                             if (Crate.client.command.equals("startGame")) {
                                 Crate.client.command = "";
                                 setContentView(R.layout.client_main_game);
@@ -566,11 +560,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                                 new textDynamicCheck().start();
                             }
                         }
-                        if (HOST_WAIT && host_start != null) { if(!host_start.isEnabled()) host_start.setEnabled(true); }
+                        if (HOST_WAIT && host_start != null) {
+                            if (!host_start.isEnabled()) host_start.setEnabled(true);
+                        }
                     }
                 });
                 try {
-                    Thread.sleep(0,200);
+                    Thread.sleep(0, 200);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
@@ -585,27 +581,102 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     TextView rightPt, leftPt;
     Button pauseBtn, leaveBtn;
 
+    int lastIndex = -1;
+
     class textDynamicCheck extends Thread {
         @Override
         public void run() {
             timeExit = findViewById(R.id.time_exit);
             rightPt = findViewById(R.id.rightPt);
             leftPt = findViewById(R.id.leftPt);
+            if (Crate.isTutor) {
+                final float scale = getResources().getDisplayMetrics().density;
+                int pixels = (int) (550 * scale + 0.5f);
+                timeExit.setWidth(pixels);
+                timeExit.setTextColor(Color.rgb(255, 255, 255));
+                lastIndex = DrawerSingle.tutorStages - 1;
+            } else {
+                timeExit = findViewById(R.id.time_exit);
+            }
             while (!DrawerSingle.onSVDestroy || !HostDrawer.onSVDestroy || !ClientDrawer.onSVDestroy) {
 
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
 
-                        if ((Crate.time / 1000) % 60 >= 10) {
-                            timeExit.setText("Time left: " + (Crate.time / 1000) / 60 + ":" + (Crate.time / 1000) % 60);
-                        } else
-                            timeExit.setText("Time left: " + (Crate.time / 1000) / 60 + ":0" + (Crate.time / 1000) % 60);
-                        rightPt.setText(String.valueOf(Crate.rightPt));
-                        leftPt.setText(String.valueOf(Crate.leftPt));
+                        if (!Crate.isTutor) {
+                            if ((Crate.time / 1000) % 60 >= 10) {
+                                timeExit.setText("Time left: " + (Crate.time / 1000) / 60 + ":" + (Crate.time / 1000) % 60);
+                            } else
+                                timeExit.setText("Time left: " + (Crate.time / 1000) / 60 + ":0" + (Crate.time / 1000) % 60);
+                            rightPt.setText(String.valueOf(Crate.rightPt));
+                            leftPt.setText(String.valueOf(Crate.leftPt));
+                        } else {
+                            switch (DrawerSingle.tutorStages) {
+                                case 0:
+                                    if (lastIndex != 0) {
+                                        timeExit.setText(getResources().getString(R.string.welcome_Tutor));
+                                        lastIndex = 0;
+                                    }
+                                    break;
 
-                        if(Crate.time <= 0)
-                        {
+                                case 1:
+                                    if (lastIndex != 1) {
+                                        timeExit.setText(getResources().getString(R.string.controls_tutor));
+                                        lastIndex = 1;
+                                    }
+                                    break;
+
+                                case 2:
+                                    if (lastIndex != 2) {
+                                        timeExit.setText(getResources().getString(R.string.abils_tutor));
+                                        lastIndex = 2;
+                                    }
+                                    break;
+                                case 3:
+                                    if (lastIndex != 3) {
+                                        timeExit.setText(getResources().getString(R.string.abil_test_tutor));
+                                        lastIndex = 3;
+                                    }
+                                    break;
+                                case 4:
+                                    if (lastIndex != 4) {
+                                        timeExit.setText(getResources().getString(R.string.events_tutor));
+                                        lastIndex = 4;
+                                    }
+                                    break;
+                                case 5:
+                                    if (lastIndex != 5) {
+                                        timeExit.setText(getResources().getString(R.string.n_event_tutor));
+                                        lastIndex = 5;
+                                    }
+                                    break;
+                                case 6:
+                                    if (lastIndex != 6) {
+                                        timeExit.setText(getResources().getString(R.string.g_event_tutor));
+                                        lastIndex = 6;
+                                    }
+                                    break;
+                                case 7:
+                                    if (lastIndex != 7) {
+                                        timeExit.setText(getResources().getString(R.string.end_tutor));
+                                        lastIndex = 7;
+                                    }
+                                    break;
+                                case 8:
+                                    if (lastIndex != 8) {
+                                        pauseBtn.setEnabled(false);
+                                        Crate.isSuspended = true;
+                                        leaveBtn.setVisibility(View.VISIBLE);
+                                        leaveBtn.setEnabled(true);
+                                        lastIndex = 8;
+                                    }
+                                    break;
+
+                            }
+                        }
+
+                        if (Crate.time <= 0) {
                             endGameTv = findViewById(R.id.endGameText);
                             endGameTv.setVisibility(View.VISIBLE);
                             if (Crate.leftPt > Crate.rightPt) {
@@ -621,7 +692,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     }
                 });
                 try {
-                    Thread.sleep(0,200);
+                    Thread.sleep(0, 200);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

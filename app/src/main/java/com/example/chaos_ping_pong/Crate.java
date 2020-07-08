@@ -37,6 +37,9 @@ public class Crate {
     public static Bitmap ability1;
     public static Bitmap ability2;
     public static Bitmap ability3;
+    public static Ability gameAbility1;
+    public static Ability gameAbility2;
+    public static Ability gameAbility3;
 
     static SoundPool soundPool;
     static int s_ID_reverse;
@@ -51,4 +54,6 @@ public class Crate {
     public static GameServer server;
     public static GameClient client;
     public static int playerBitmapIndex = 0;
+
+    public static boolean isTutor = false;
 }

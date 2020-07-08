@@ -15,6 +15,7 @@
         android:layout_alignParentTop="true"
         android:textSize="30sp"
         android:textColor="@color/timePaint"
+        android:textAlignment="center"
         android:id="@+id/time_exit"/>
     <TextView
         android:layout_width="wrap_content"

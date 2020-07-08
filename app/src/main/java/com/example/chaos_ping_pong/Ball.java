@@ -110,6 +110,7 @@ public class Ball {
         this.x = x;
         this.y = y;
         isDisabled =false;
+        isInvis = false;
     }
 
     public void inverseCheck() { //TODO определять часть экрана для звука

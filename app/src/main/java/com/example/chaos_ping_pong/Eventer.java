@@ -53,7 +53,7 @@ import java.util.Random;
         private LinkedList<Player> eventAiEasyMidList = new LinkedList<>();
         private LinkedList<Ball> balls = new LinkedList<>();
 
-        private void startEvent() {
+        void startEvent() {
             int index = rand.nextInt(10);
             //index = 0;
             switch (index) {
@@ -171,7 +171,7 @@ import java.util.Random;
 
         }
 
-        private void startGlobal() {
+        void startGlobal() {
             int index = rand.nextInt(4);
             //index = 3;
             switch (index) {
@@ -300,8 +300,6 @@ import java.util.Random;
                 if (eventName.equals("pInvis")) {
                     p1.makeVisible();
                     p2.makeVisible();
-                    Crate.animator.obstSpawn(p1);
-                    Crate.animator.obstSpawn(p2);
                 }
                 if (eventName.equals("massTeleport")) massTeleporting = false;
                 if (eventName.equals("colorChanger")) colorChanger = false;

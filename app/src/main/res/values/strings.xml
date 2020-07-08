@@ -2,38 +2,33 @@
     <string name="app_name">Chaos Ping-Pong</string>
     <string name="backWord"><![CDATA[<<Back]]></string>
     <string name="current_skin">Current Skin</string>
-    <string name="changeWord">change</string>
-    <string name="pauseSticks">||</string>
+    <string name="pauseSticks" translatable="false">||</string>
     <string name="leave">leave</string>
     <string name="singleplayer">Singleplayer</string>
     <string name="multiplayer">Multiplayer</string>
     <string name="host">HOST</string>
     <string name="join">Join</string>
-    <string name="not_loaded">TEXT IS NOT LOADED</string>
+    <string name="not_loaded" translatable="false">TEXT IS NOT LOADED</string>
     <string name="enter_host_ip">Enter Host IP</string>
     <string name="start">start</string>
-    <string name="gameName">
+    <string name="changeWord">change</string>
+    <string name="gameName" translatable="false">
         CHAOS\n
         PING-PONG
     </string>
     <string name="tutorial">Tutorial</string>
-    <string name="tutorialEnter">
-        This is Chaos Ping-Pong tutorial.\nYou can do it interactive by pressing button below.
-    </string>
-    <string name="first_of_all_tutorial">
-        First of all you have to understand, that this game is not normal ping-pong.\nYou can use abilities! - change them in \"Options\".
-    </string>
-    <string name="interactive">Interactive Mode</string>
-    <string name="controls">
-        Now about controls:\n\nTo move your platform, simply tap on screen, and then platform\'ll go to this position (on Y axis).
-    </string>
-    <string name="abilities">To use abilities tap them on the bottom of the screen. But warning! - Some abilities have to be used on field after charged.</string>
-    <string name="events">
-        One of game feature is Events.\n\nThere are two types of them: Global and Normal.\nNormal has blue marker, happens every 15 seconds,\nwhen Global happens every minute, has red marker and won\'t be reversed.</string>
     <string name="reverse_desc">Reverses balls speed on Y</string>
     <string name="spawn_obst_desc">Spawns an obstacle in tapped position after charged</string>
     <string name="speed_up_desc">Speeds your platform</string>
     <string name="tracker_desc">Shows ball trajectory</string>
     <string name="smoke_desc">Spawns a smoke in tapped position after charged</string>
     <string name="desc_desc">tap on abilities to show their description</string>
+    <string name="welcome_Tutor">Welcome in Chaos Ping-Pong tutorial. Here you\'ll learn basic mechanics, such as events and abilities.</string>
+    <string name="controls_tutor">Controls firstly - to move your platform, simply tap on screen and then your platform will move at this point.</string>
+    <string name="abils_tutor">Now abilities - to use them, simply tap on their icon (bottom of the screen). Some abilities have to be used after charging. Try to use chargeable ability called \"Spawn Obstacle\".</string>
+    <string name="abil_test_tutor">Now place it by tapping somewhere in the screen.</string>
+    <string name="events_tutor">Second feature is events. There are two types of them - normal, and global.</string>
+    <string name="n_event_tutor">This is a normal event. They happens every 15 seconds, and making main chaos in game.</string>
+    <string name="g_event_tutor">And this is global one. They happens every minute and not reversing.</string>
+    <string name="end_tutor">Here\'s your enemy. And you have to try beat him! use your abilities to make progess. \n  Congatulations beating tutorial!</string>
 </resources>

@@ -53,6 +53,8 @@ public class DrawerSingle extends SurfaceView implements SurfaceHolder.Callback 
 
     Timer timer;
     DrawerThread drawerThread;
+    TutorThread tutorThread;
+    TutorTimer tutorTimer;
 
     @Override
     public void surfaceCreated(SurfaceHolder holder) {
@@ -61,16 +63,33 @@ public class DrawerSingle extends SurfaceView implements SurfaceHolder.Callback 
         this.ability1 = Crate.ability1;
         this.ability2 = Crate.ability2;
         this.ability3 = Crate.ability3;
+        this.gameAbility1 = Crate.gameAbility1;
+        this.gameAbility2 = Crate.gameAbility2;
+        this.gameAbility3 = Crate.gameAbility3;
         onSVDestroy = false;
         Crate.isSuspended = false;
         Crate.leavedGame = false;
 
-        DrawerThread dt = new DrawerThread();
+
         surfaceHolder = holder;
+
+        if(Crate.isTutor)
+        {
+            TutorThread tt = new TutorThread();
+            tt.start();
+            this.tutorThread = tt;
+            TutorTimer tti = new TutorTimer();
+            tti.start();
+            this.tutorTimer = tti;
+        }
+        else
+            {
+                DrawerThread dt = new DrawerThread();
+                dt.start();
+                this.drawerThread = dt;
+            }
         Timer timer = new Timer();
         timer.start();
-        dt.start();
-        this.drawerThread = dt;
         this.timer = timer;
     }
 
@@ -83,13 +102,18 @@ public class DrawerSingle extends SurfaceView implements SurfaceHolder.Callback 
                     if (Crate.time >= 0) {
                         if (event.getY() < height) {
                             if (!isLock) {
-                                float destY = event.getY();
-                                float destX = event.getX();
-                                if (!playersInversed) {
-                                    p1.setDestY(destY - p1.height / 2);
-                                } else p1.setDestY(height - destY - p1.height / 2);
+                                if(tutorStages == 1 || !Crate.isTutor) {
+                                    float destY = event.getY();
+                                    float destX = event.getX();
+                                    if (!playersInversed) {
+                                        p1.setDestY(destY - p1.height / 2);
+                                    } else p1.setDestY(height - destY - p1.height / 2);
+                                    if(Crate.isTutor)
+                                        tutorStages++;
+                                }
                             } else {
-                                isLock = false;
+                                if (tutorStages == 3 || !Crate.isTutor) {
+                                    isLock = false;
                                 if (abil1Lock) {
                                     gameAbility1.use(event.getX(), event.getY(), obstImg);
                                     abil1Lock = false;
@@ -105,9 +129,12 @@ public class DrawerSingle extends SurfaceView implements SurfaceHolder.Callback 
                                     abil3Lock = false;
                                     Crate.animator.isLockerAbility = false;
                                 }
+                                if(Crate.isTutor)
+                                    tutorStages++;
+                            }
                             }
                         } else {
-                            if (!isLock) {
+                            if (!isLock && (tutorStages == 2 || !Crate.isTutor)) {
                                 if (event.getX() < totalImgWidth) {
                                     if (Crate.lockerAbilities.contains(gameAbility2.name)) {
                                         isLock = true;
@@ -130,27 +157,9 @@ public class DrawerSingle extends SurfaceView implements SurfaceHolder.Callback 
                                             Crate.animator.isLockerAbility = true;
                                     } else gameAbility3.use(event.getX(), event.getY(), obstImg);
                                 }
+                                if(Crate.isTutor)
+                                    tutorStages++;
                             }
-                /*
-                else
-                    {
-                        if (abil1Lock) {
-                            isLock = false;
-                            abil1Lock = false;
-                            Crate.animator.isLockerAbility = false;
-                        }
-                        if (abil2Lock) {
-                            isLock = false;
-                            abil2Lock = false;
-                            Crate.animator.isLockerAbility = false;
-                        }
-                        if (abil3Lock) {
-                            isLock = false;
-                            abil3Lock = false;
-                            Crate.animator.isLockerAbility = false;
-                        }
-                    }
-                 */
                         }
                     }
                 }
@@ -197,9 +206,10 @@ public class DrawerSingle extends SurfaceView implements SurfaceHolder.Callback 
         onSVDestroy  = true;
         while (retry) {
             try {
-                drawerThread.join();
+                if(!Crate.isTutor) { drawerThread.join();}
+                else { tutorThread.join(); tutorTimer.join();}
                 timer.join();
-                retry = false;
+
             } catch (InterruptedException e) {
             }
             if(Crate.leavedGame)
@@ -214,12 +224,15 @@ public class DrawerSingle extends SurfaceView implements SurfaceHolder.Callback 
                 Crate.animator = new Animator();
                 eventer = null;
                 secEventer = null;
+                Crate.isTutor = false;
+                tutorStages = 0;
             }
             else fakeLeave = true;
+            retry = false;
         }
     }
 
-    static boolean onSVDestroy; //TODO все похожие статики надо будет заменить и получать SV через findviewbyid
+    static boolean onSVDestroy;
     private boolean fakeLeave = false;
 
     Bitmap obstImg = BitmapFactory.decodeResource(getResources(), R.drawable.event_obstacle);
@@ -248,6 +261,178 @@ public class DrawerSingle extends SurfaceView implements SurfaceHolder.Callback 
 
     static Eventer eventer;
     static Eventer secEventer;
+
+    static short tutorStages = 0;
+
+    class TutorTimer extends Thread
+    {
+        @Override
+        public void run() {
+            try {
+                Thread.sleep(7000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            tutorStages++;
+        }
+    }
+
+    class TutorThread extends Thread
+    {
+        @Override
+        public void run() {
+            canvas = surfaceHolder.lockCanvas();
+            canvas.drawRGB(0, 0, 0);
+            height = canvas.getHeight() - canvas.getHeight() / 6;
+            width = canvas.getWidth();
+
+            abil2 = new AbilityIcons(0, height - ability1.getHeight() * ((height - ability3.getHeight()) / height) + ability1.getHeight() * ((height - ability3.getHeight()) / height), (height - ability2.getHeight()) / height, ability2);
+
+            totalImgWidth = ability1.getWidth() * abil2.sk;
+
+            skx = width/1280.0f;
+            sky = canvas.getHeight()/670.0f;
+
+            Paint lineTillPowers = new Paint();
+            lineTillPowers.setARGB(255, 53, 105, 64);
+
+            Obstacle.setAppSize(height, width);
+            Crate.animator.setAppSize(height, width);
+
+            Ball ball;
+            if(!fakeLeave) {
+                ball = new Ball(1280.0f / 2, 670.0f / 2, 5);
+                Crate.balls.add(ball);
+            }
+            else ball = Crate.balls.get(0);
+            ball.disable();
+
+            if(!fakeLeave) {
+                p1 = new Player((1280.0f / 8 - 15)*skx, (670.0f / 2 - 60)*sky, 30, 120, playerImg);
+                ai = new Player((1280.0f - 1280.0f / 8 - 15)*skx, (670.0f / 2 - 60)*sky, 30, 120, playerImg, difficulty);
+            }
+            else
+            {
+                p1 =(Player)Crate.obstacles.get(0);
+                ai = Crate.bots.get(0);
+            }
+            ai.makeInvisible();
+
+            Paint abilityPaint = new Paint();
+            abilityPaint.setAlpha(255);
+
+            Paint darkPaint = new Paint();
+            darkPaint.setAlpha(255);
+
+            gameAbility2 = new Ability(Crate.abilities[1], p1, ai,skx, sky);
+            gameAbility2.name = "spawnObst";
+
+            if(!fakeLeave) {
+                eventer = new Eventer(p1, ai, ball, width, height, obstImg, mgObstImg);
+            }
+            fakeLeave = false;
+
+            surfaceHolder.unlockCanvasAndPost(canvas);
+            while (Crate.time >= 0 && !onSVDestroy) {
+                if (!Crate.isSuspended) {
+                    isPaused = false;
+                    canvas = surfaceHolder.lockCanvas();
+                    if (canvas != null) {
+                        synchronized (canvas) {
+                            canvas.drawRGB(0, 0, 0);
+                            gameAbility2.check();
+
+                            p1.draw(canvas);
+                            for (int i = 0; i < Crate.balls.size(); i++) {
+                                Crate.balls.get(i).draw(canvas);
+                            }
+
+                            p1.destChecker();
+                            ai.draw(canvas);
+
+                            for (Player player : Crate.bots) {
+                                player.botCheck();
+                            }
+
+                            synchronized (Crate.balls) {
+                                for (Ball ballItr : Crate.balls) {
+                                    ballItr.inverseCheck();
+                                    ballItr.move();
+                                }
+                            }
+
+                            for (int i = 0; i < Crate.obstacles.size(); i++) {
+                                Crate.obstacles.get(i).move();
+                                Crate.obstacles.get(i).draw(canvas);
+                            }
+
+                            if (doubleEvents && secEventer == null)
+                                secEventer = new Eventer(p1, ai, ball, width, height, obstImg, mgObstImg);
+
+                            canvas.drawRect(0, height, width, canvas.getHeight(), darkPaint);
+                            canvas.drawLine(0, height - 5, width, height - 5, lineTillPowers);
+                            canvas.drawLine(0, height - 1, width, height - 1, lineTillPowers);
+
+                            if(tutorStages == 2) {
+                                abil2.drawAbility(canvas);
+                            }
+
+                            if(tutorStages == 4)  {
+                                if(!tutorTimer.isAlive()) {
+                                    tutorTimer = new TutorTimer();
+                                    tutorTimer.start();
+                                }
+                            }
+                            if(tutorStages == 5) {
+                                if(!tutorTimer.isAlive()) {
+                                    tutorTimer = new TutorTimer();
+                                    tutorTimer.start();
+                                    Crate.animator.makeEvent(false);
+                                    Crate.soundPool.play(Crate.s_ID_event, 1, 1, 0, 0, 1);
+                                }
+                            }
+                            if(tutorStages == 6) {
+                                if(!tutorTimer.isAlive()) {
+                                tutorTimer = new TutorTimer();
+                                tutorTimer.start();
+                                    Crate.animator.makeEvent(true);
+                                    Crate.soundPool.play(Crate.s_ID_event, 1, 1, 0, 0, 0.5f);
+                            } }
+                            if(tutorStages == 7) {
+                                if(!tutorTimer.isAlive()) {
+                                tutorTimer = new TutorTimer();
+                                tutorTimer.start();
+                                    ai.makeVisible();
+                            } }
+
+                            Crate.animator.animationCheck(canvas, p1, ai,  BitmapFactory.decodeResource(getResources(), R.drawable.smoke_unit), BitmapFactory.decodeResource(getResources(), R.drawable.event_marker), BitmapFactory.decodeResource(getResources(), R.drawable.global_event_marker));
+
+                            try {
+                                Thread.sleep(1);
+                            } catch (InterruptedException e) {
+                                e.printStackTrace();
+                            }
+                            surfaceHolder.unlockCanvasAndPost(canvas);
+                        }
+                    }
+                }
+                else
+                {
+                    if(!isPaused) {
+                        canvas = surfaceHolder.lockCanvas();
+                        surfaceHolder.unlockCanvasAndPost(canvas);
+                        isPaused = true;
+                    }
+
+                    try {
+                        Thread.sleep(100);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+    }
 
     class DrawerThread extends Thread {
         @Override
@@ -295,16 +480,18 @@ public class DrawerSingle extends SurfaceView implements SurfaceHolder.Callback 
             abilityPaint.setAlpha(255);
 
             Paint darkPaint = new Paint();
-            darkPaint.setAlpha(0);
+            darkPaint.setAlpha(255);
 
-            gameAbility1 = new Ability(Crate.abilities[0], p1, ai,skx, sky);
-            gameAbility2 = new Ability(Crate.abilities[1], p1, ai,skx, sky);
-            gameAbility3 = new Ability(Crate.abilities[2], p1, ai,skx, sky);
+            if(!fakeLeave) {
+                gameAbility1 = new Ability(Crate.abilities[0], p1, ai, skx, sky);
+                gameAbility2 = new Ability(Crate.abilities[1], p1, ai, skx, sky);
+                gameAbility3 = new Ability(Crate.abilities[2], p1, ai, skx, sky);
+                Crate.gameAbility1 = gameAbility1;
+                Crate.gameAbility2 = gameAbility2;
+                Crate.gameAbility3 = gameAbility3;
+            }
 
             Crate.animator.setAppSize(height, width);
-
-            //TODO мини-штуки из середины --- до сдачи делать не буду.
-
 
             if(!fakeLeave) {
                 eventer = new Eventer(p1, ai, ball, width, height, obstImg, mgObstImg);
@@ -409,4 +596,3 @@ public class DrawerSingle extends SurfaceView implements SurfaceHolder.Callback 
         }
     }
 }
-

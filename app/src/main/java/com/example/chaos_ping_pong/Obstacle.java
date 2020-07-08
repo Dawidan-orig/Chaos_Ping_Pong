@@ -55,10 +55,12 @@ public class Obstacle {
     boolean isInvis = false;
 
     void makeInvisible() {
+        Crate.animator.obstSpawn(this);
         isInvis = true;
     }
 
     void makeVisible() {
+        Crate.animator.obstSpawn(this);
         isInvis = false;
     }
 
@@ -69,7 +71,7 @@ public class Obstacle {
 
     public void draw(Canvas canvas) //sk = Scale Koof.
     {
-        if(!isKilled || !isInvis) {
+        if(!isKilled && !isInvis) {
             Paint paint = new Paint();
             Rect r = new Rect();
             r.left = (int)x;

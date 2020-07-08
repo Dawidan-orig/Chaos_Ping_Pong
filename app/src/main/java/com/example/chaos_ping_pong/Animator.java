@@ -6,6 +6,9 @@ import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 
+import com.example.chaos_ping_pong.Multiplayer.ClientDrawer;
+import com.example.chaos_ping_pong.Multiplayer.HostDrawer;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -391,16 +394,18 @@ public class Animator {
 
     public void animationCheck(Canvas canvas, Player pl, Player pr, Bitmap smoke, Bitmap eMarker, Bitmap gEMarker) {
 
-        if(eventCooldown > Crate.time) {
-            eventCooldown = Crate.time - 15000;
-            makeEvent(false);
-            Crate.soundPool.play(Crate.s_ID_event, 1,1,0,0,1);
-        }
+        if (!Crate.isTutor) {
+            if (eventCooldown > Crate.time) {
+                eventCooldown = Crate.time - 15000;
+                makeEvent(false);
+                Crate.soundPool.play(Crate.s_ID_event, 1, 1, 0, 0, 1);
+            }
         if (gEventCooldown > Crate.time) {
             gEventCooldown = Crate.time - 60000;
             makeEvent(true);
-            Crate.soundPool.play(Crate.s_ID_event, 1,1,0,0,0.5f);
+            Crate.soundPool.play(Crate.s_ID_event, 1, 1, 0, 0, 0.5f);
         }
+    }
 
         checker();
 
