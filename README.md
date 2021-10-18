@@ -6,4 +6,4 @@ I had to do this project during education, when Java was not obvious for me in t
 Known issues: Broken multithreading; Wrong OOP usage; non-centralised control system; Multiplayer (That was not teached; I tried to make multiplayer myself)
 Tutorial was done for few days before deadline.
 
-For now, project is frosen.
+For now, project is frozen until I get enough experience.
